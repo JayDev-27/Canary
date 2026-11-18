@@ -6,6 +6,7 @@
   "start": "2026-08-14",
   "completeness": 1.0,
   "confidence": "higher",
+  "reason": "The combined evidence met the Alert criteria on at least two of three days.",
   "contributions": [
     {
       "stream": "clinic_respiratory",

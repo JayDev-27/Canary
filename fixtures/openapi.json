@@ -694,6 +694,10 @@
             ],
             "title": "Confidence"
           },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
           "contributions": {
             "items": {
               "additionalProperties": true,
@@ -733,6 +737,7 @@
           "start",
           "completeness",
           "confidence",
+          "reason",
           "contributions",
           "zone",
           "window",
@@ -782,6 +787,10 @@
               "low"
             ],
             "title": "Confidence"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
           }
         },
         "type": "object",
@@ -792,7 +801,8 @@
           "tier",
           "start",
           "completeness",
-          "confidence"
+          "confidence",
+          "reason"
         ],
         "title": "AlertSummary"
       },

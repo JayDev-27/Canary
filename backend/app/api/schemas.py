@@ -66,6 +66,7 @@ class AlertSummary(BaseModel):
     start: date
     completeness: float
     confidence: Literal["higher", "reduced", "low"]
+    reason: str
 
 
 class SignalSeries(BaseModel):
