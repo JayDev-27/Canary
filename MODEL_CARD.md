@@ -24,5 +24,11 @@ The evaluation uses 144 injected events across three held-out seeds. On events b
 - Exposure-to-outcome relationships and reporting lags vary by scenario. The simulator uses generated patterns at daily resolution. A pilot needs actual data arrival timestamps and independent event labels.
 - Clinic and workplace outcomes are synthetic. Environmental context can come from Open-Meteo CAMS and ECMWF feeds. Check location coverage and feed completeness before use.
 - Impact estimates depend on the uptake and effectiveness values selected in the estimator. Treat them as scenario assumptions.
-- The public website uses seeded data and user-selectable demo roles. Sensitive deployments require authenticated organization and site scope, reviewed access rules, and a defined alert budget. [Deployment modes](docs/deployment.md)
+- The public website provides seeded scenarios and on-demand analysis under user-selectable demo roles. Sensitive deployments require authenticated organization and site scope, reviewed access rules, and a defined alert budget. [Deployment modes](docs/deployment.md)
 - Set clinical and operational thresholds with reviewers before a shadow pilot. Document site definitions, expected reporting delays, and the review process. [Data and privacy](DATA_GOVERNANCE.md)
+
+## On-demand site count analysis
+
+The public workflow uses the previous 28 Dubai calendar days, with at least seven published counts of five or more. Counts under five and missing dates are excluded from fitting and scoring. The baseline is the mean of eligible prior counts. The spread is the maximum of the sample standard deviation, the square root of the mean and one count. Watch begins at the ceiling of the mean plus twice the spread. Alert requires the current day and at least one of the two previous calendar days to reach their own Watch thresholds. Action begins at the ceiling of the mean plus five times the spread.
+
+This short-window method conditions on counts of at least five and can overstate the baseline for sparse series. It assumes comparable reporting scope and cannot adjust for changes in denominators, reporting practices or seasonality. Current regional weather and air-model values are displayed as review context. A missing latest count leaves the tier unavailable, with the historical baseline shown when available. The held-out fusion results above apply to the separate FastAPI detector. [Reviewer walkthrough](docs/deployment.md#reviewer-walkthrough)

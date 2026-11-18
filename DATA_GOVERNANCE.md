@@ -19,9 +19,9 @@ Canary enforces an uncompromising aggregate-only ingestion contract:
 
 ---
 
-## 2. Statistical Disclosure Control ($k$-Anonymity & Suppression)
+## 2. Statistical Disclosure Control
 
-To eliminate the risk of individual re-identification in low-density monitoring units:
+Canary uses small-cell and secondary suppression to reduce disclosure risk in low-density monitoring units.
 1. **Primary Small-Cell Suppression:** Any published aggregate cell where count $< k$ (default $k=5$) is masked with `< 5`.
 2. **Secondary Suppression:** Where row or column totals could permit mathematical deduction of a suppressed cell by subtraction, secondary non-sensitive cells are suppressed or parent district roll-up is enforced.
 3. **No Raw Leakage:** Suppressed values are stripped server-side prior to serialization; the client receives only the masked token.
@@ -38,12 +38,17 @@ Access boundaries are enforced strictly on the server:
 
 ---
 
-## 4. Immutable Audit Trail
+## 4. Audit Events
 
-Every view of an active alert, protected site detail, or role-switch event generates an append-only audit log entry recording:
+The governance view demonstrates audit events for alert access and role switching. Example entries include:
 - `timestamp`: UTC ISO 8601 timestamp.
 - `actorRole`: Active session role.
 - `eventType`: `VIEW_ALERT`, `VIEW_PROTECTED_UNIT`, `ROLE_SWITCH`, etc.
 - `resourceId`: Targeted entity.
 - `ipMasked`: Anonymized subnet IP address.
 
+## 5. Public site count analysis
+
+The public workspace accepts only a known site, a fixed count category, and a CSV of dates and daily totals. The server rejects extra fields and removes counts below five before calculating baselines, thresholds and evidence. It returns neither report totals nor breakdowns that could reconstruct a withheld value. The report and evidence are held on the page until cleared or closed. Environmental provider requests include only configured site coordinates.
+
+Accept, dismiss and structured note actions are stored in the reviewer’s browser. A saved entry contains the disposition or note code, a demonstration role, a timestamp and an alert key. The imported alert key is derived from already-suppressed evidence. Demo review entries have no shared audit store. Use the authenticated service and approved data controls for persistent operational ingestion. [Deployment modes](docs/deployment.md)

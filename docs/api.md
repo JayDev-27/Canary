@@ -8,7 +8,7 @@ Swagger UI is available at `http://127.0.0.1:8000/docs` and its contract at `/op
 | GET | `/units` | Scope-specific site or district IDs and illustrative coordinates. [Fixture](../fixtures/units.json) |
 | GET | `/signals` | Required `unit_id`, `from`, `to`, `stream`. Inclusive ISO dates, up to 366 days. [Fixture](../fixtures/signals.json) |
 | GET | `/alerts` | Optional `tier`, `unit_id`, `limit` (default 100), `offset`. Most recent first. [Fixture](../fixtures/alerts.json) |
-| GET | `/alerts/{alert_id}` | Score contributions, observed and expected counts, scan zone and window, data availability and recommendation. [Fixture](../fixtures/alert-detail.json) |
+| GET | `/alerts/{alert_id}` | Tier reason, score contributions, observed and expected counts, scan zone and window, data availability and recommendation. [Fixture](../fixtures/alert-detail.json) |
 | GET | `/replay/{scenario}` | `respiratory`, `gi` or `heat`. Query `day` starts at 0, five days before the event. Markers accumulate through the requested day. [Fixture](../fixtures/replay-respiratory.json) |
 | GET | `/backtest/summary` | Held-out simulated results, comparators, ablations and timings. [Fixture](../eval/reports/summary.json) |
 | GET | `/compliance` | Regulator-only indicators for scheduled district reports. [Fixture](../fixtures/compliance.json) |
@@ -21,3 +21,15 @@ Signals return `available`, `missing`, `suppressed` or `rolled_up`. A missing ce
 The waterfall can render numeric `contribution` values and mark the rest as unavailable. The `hazard_prior` term includes its source inputs. Suppression can hide parts of the waterfall, so an exact total is omitted. `completeness` is the fraction of applicable inputs with usable readings and reference estimates. `confidence` is a coverage label rather than a probability. Recommendation review dates use the alert date in Asia/Dubai.
 
 A credential outside the requested scope gets 404 for unit and alert details. A denied role or write receives 403. Invalid payloads receive 422 with generic issue types. A missing or invalid credential in authenticated mode receives 401. Re-run `uv run python -m scripts.generate_fixtures` to update examples after changing the API.
+
+## Public workspace endpoints
+
+The Next.js workspace serves these endpoints on its own origin. Demo roles represent the selected view.
+
+| Method | Endpoint | Request and response |
+| --- | --- | --- |
+| POST | `/api/v1/analyze` | Strict JSON with `unitId`, `category`, `role` and `csv`. Returns the latest assessment, up to 28 days of suppressed evidence, and the result with the latest count withheld. |
+| GET | `/api/v1/environment?location=…` | Current weather and air-quality estimates for a catalog location. Each provider independently returns `current`, `stale` or `missing`. |
+| POST | `/api/v1/ingest` | Validates sample JSON for the privacy demo and returns a receipt with `recordsValidated`. |
+
+Analysis accepts at most 16 KB of CSV covering up to 366 calendar days. Requests with invalid structure, unsupported media type, an oversized body, out-of-scope sites or invalid report data return a concise error and no submitted values. Environmental providers receive only a catalog location's coordinates and fixed field requests. [Reviewer walkthrough](deployment.md#reviewer-walkthrough)
