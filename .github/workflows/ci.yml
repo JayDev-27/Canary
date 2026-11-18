@@ -61,10 +61,11 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           curl --fail --silent --retry 20 --retry-connrefused --retry-delay 1 http://127.0.0.1:3100/ >/dev/null
-          for path in dashboard map alerts alerts/ALT-2026-001 replay validation privacy impact settings; do
+          for path in dashboard map analyze alerts alerts/ALT-2026-001 replay validation privacy impact settings; do
             curl --fail --silent "http://127.0.0.1:3100/$path" >/dev/null
           done
           curl --fail --silent http://127.0.0.1:3100/api/v1/backtest/summary |
             jq -e '.data == "simulated" and .comparators.canary.events > 0'
           curl --fail --silent 'http://127.0.0.1:3100/api/v1/replay/scen-respiratory?all=true' |
             jq -e '.days | length > 0'
+          node scripts/smoke-surveillance.mjs http://127.0.0.1:3100

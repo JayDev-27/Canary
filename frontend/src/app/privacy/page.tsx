@@ -125,7 +125,7 @@ export default function PrivacyGovernancePage() {
                 <div className="p-3.5 rounded-control canary-panel-inset font-mono text-xs text-canary-text-2 space-y-1">
                   <div className="text-canary-amber font-semibold">// Approved Canonical Contract</div>
                   <div>&#123;</div>
-                  <div className="pl-4"><span className="text-prov-real">&quot;unit_id&quot;</span>: <span className="text-tier-watch-text">&quot;site-004&quot;</span>, <span className="text-canary-text-3">// Monitored site / district</span></div>
+                  <div className="pl-4"><span className="text-prov-real">&quot;unit_id&quot;</span>: <span className="text-tier-watch-text">&quot;site-04&quot;</span>, <span className="text-canary-text-3">// Monitored site / district</span></div>
                   <div className="pl-4"><span className="text-prov-real">&quot;date&quot;</span>: <span className="text-tier-watch-text">&quot;2026-11-07&quot;</span>, <span className="text-canary-text-3">// Observation bucket</span></div>
                   <div className="pl-4"><span className="text-prov-real">&quot;category&quot;</span>: <span className="text-tier-watch-text">&quot;respiratory_clinic_visits&quot;</span>,</div>
                   <div className="pl-4"><span className="text-prov-real">&quot;count&quot;</span>: <span className="text-tier-alert-text">14</span> <span className="text-canary-text-3">// Approved aggregate count</span></div>
@@ -134,7 +134,7 @@ export default function PrivacyGovernancePage() {
 
                 <div className="text-canary-text-2 text-xs leading-relaxed space-y-1">
                   <p>
-                    All API ingress payloads are validated by strict Pydantic schemas. Payloads containing row-level identifiers (such as names, national IDs, or case notes) are immediately rejected with HTTP 400 and logged without persisting sensitive text.
+                    Try the aggregate contract with sample JSON. The validator rejects unexpected fields without returning their names or values. Use site count analysis to calculate a baseline from approved daily totals.
                   </p>
                 </div>
               </div>
@@ -144,10 +144,10 @@ export default function PrivacyGovernancePage() {
           <div className="col-span-12 lg:col-span-6 flex flex-col">
             <Panel
               title="Interactive Ingestion Validator"
-              subtitle="Test how the ingestion API enforces the privacy boundary against malformed or person-level payloads"
+              subtitle="Check sample payloads against the aggregate contract"
             >
               <div className="space-y-4 text-xs">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={() => runIngestionTest('forbidden_person')}
                     className="px-3 py-1.5 rounded-control bg-panel-inset hover:bg-panel border border-border text-xs text-canary-text font-medium"
@@ -180,12 +180,12 @@ export default function PrivacyGovernancePage() {
                       {testResult.status === 'accepted' ? (
                         <>
                           <CheckCircle2 className="w-4 h-4 text-status-ok" />
-                          <span className="text-status-ok">HTTP 201: Payload Accepted</span>
+                          <span className="text-status-ok">Sample validated</span>
                         </>
                       ) : (
                         <>
                           <XCircle className="w-4 h-4 text-tier-action-text" />
-                          <span className="text-tier-action-text">HTTP 400: Ingestion Gate Rejection</span>
+                          <span className="text-tier-action-text">Sample could not be validated</span>
                         </>
                       )}
                     </div>
@@ -306,10 +306,10 @@ export default function PrivacyGovernancePage() {
           </div>
         </Panel>
 
-        {/* Live Immutable Audit Log */}
+        {/* Demo audit events */}
         <Panel
-          title="System Audit & Access Log"
-          subtitle="Append-only record of view accesses and demonstration role switches"
+          title="Demo audit events"
+          subtitle="Sample activity and recent view events from this demo instance"
         >
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-canary-text border-collapse">

@@ -111,6 +111,7 @@ export interface AlertDetail {
   };
   detectedAt: string;
   summary: string;
+  tierReason: string;
   observedVsExpected: SignalStreamData[];
   contributions: ContributionItem[];
   overallCompleteness: number;
@@ -120,7 +121,7 @@ export interface AlertDetail {
   persistenceRuleMet: boolean;
   recommendation: Recommendation;
   provenance: {
-    environmental: 'real';
+    environmental: 'illustrative';
     outcomes: 'simulated';
   };
 }

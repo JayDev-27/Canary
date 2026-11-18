@@ -97,3 +97,15 @@
     to { opacity: 1; transform: translateY(0); }
   }
 }
+
+.review-grid { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 1120px) {
+  .review-grid { grid-template-columns: minmax(330px, .85fr) minmax(0, 1.3fr); }
+}
+.review-privacy { margin-bottom: 16px; font-size: 12px; line-height: 1.55; color: var(--text-2); }
+.review-label { display: grid; gap: 5px; min-width: 0; color: var(--text); font-size: 12px; font-weight: 750; }
+.review-input { display: block; width: 100%; min-width: 0; min-height: 40px; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel-inset); color: var(--text); font-weight: 500; }
+.review-primary { display: inline-flex; min-height: 42px; align-items: center; gap: 8px; border-radius: 10px; padding: 0 14px; background: var(--amber); color: var(--on-accent); font-size: 13px; font-weight: 800; }
+.review-primary:hover:not(:disabled) { filter: brightness(.92); }
+.review-primary:disabled, .workspace-control:disabled { opacity: .55; cursor: default; }
+.workspace-control[aria-pressed="true"] { border-color: var(--amber); color: var(--text); background: var(--panel-raised); }

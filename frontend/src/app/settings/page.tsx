@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { Panel } from '@/components/shared/Panel';
@@ -143,9 +144,9 @@ export default function SettingsPage() {
         {/* Right Column: Telemetry Feeds & System Health (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Feed Telemetry Toggles */}
-          <Panel title="ENVIRONMENTAL &amp; SYNDROMIC INGESTION PIPELINES">
+          <Panel title="Simulated feed controls">
             <p className="text-xs text-canary-text-2 mb-4">
-              Toggle the example feed states. These controls affect this preview only.
+              Toggle the example feed states. In <Link href="/analyze" className="underline underline-offset-2">site count analysis</Link>, you can compare the actual result with a missing feed.
             </p>
 
             <div className="space-y-3 text-xs">
@@ -170,7 +171,7 @@ export default function SettingsPage() {
               {/* Feed 2 */}
               <div className="p-3 rounded-panel bg-panel-inset border border-border flex items-center justify-between">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-canary-text">Open-Meteo Thermal WBGT Grid</span>
+                  <span className="font-semibold text-canary-text">Open-Meteo Weather</span>
                   <span className="text-[10px] text-canary-text-3">Global Numerical Weather Prediction · Hourly</span>
                 </div>
                 <button

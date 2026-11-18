@@ -8,7 +8,10 @@ export function SurveillanceHeader() {
         <p><Crosshair size={15} /> Regional observatory / UAE</p>
         <h2>Dubai, in focus.</h2>
         <p>Inspect illustrative monitoring areas and review simulated regional trends.</p>
-        <Link href="/map">Open the surveillance map <ArrowUpRight size={16} /></Link>
+        <div className="flex flex-wrap gap-x-5">
+          <Link href="/analyze">Analyze site counts <ArrowUpRight size={16} /></Link>
+          <Link href="/map">Open the surveillance map <ArrowUpRight size={16} /></Link>
+        </div>
       </div>
     </section>
   );
