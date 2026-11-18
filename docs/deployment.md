@@ -4,7 +4,19 @@
 
 The public [Canary demo](https://canary-jatinjio1212-8258s-projects.vercel.app) runs on the `canary` Vercel project. The project uses Next.js, Node.js 24, the `frontend` root directory, and the `main` production branch. Pushes to `main` trigger production deployments through the Git integration.
 
-The site uses bundled synthetic scenarios and demo endpoints. The FastAPI engine below runs as a separate service.
+The site includes simulated scenarios, on-demand CSV analysis, and live environmental context. The Next.js server needs outbound HTTPS access to `api.open-meteo.com` and `air-quality-api.open-meteo.com`. The public Open-Meteo endpoints need no API key for this demo. Each feed times out independently and the count-analysis workflow continues during an outage. The FastAPI engine runs as a separate service.
+
+## Reviewer walkthrough
+
+1. Open **Analyze site counts** from the surveillance room and select a site and count category.
+2. Choose **Load sample**, upload a CSV, or paste data. The format is `date,count` followed by one record per reported Dubai calendar day. Use at least seven prior counts of 5 or more for the first assessment. The example produces an Alert with two elevated days.
+3. Choose **Analyze counts**. Inspect the latest count, baseline, threshold explanation and daily evidence table.
+4. In **Missing-feed comparison**, withhold the latest count to see the assessment become unavailable. Withhold a current environmental feed to see its effect on review context.
+5. Accept the alert for follow-up, dismiss it, or record a structured note. The simulated alert inbox also reflects the decisions made on its examples in the same browser.
+
+The public workflow accepts approved aggregate data only. The server processes a report on request and returns a suppressed, non-cacheable result. It does not write the CSV or derived counts to storage. Browser-local reviews keep a decision or a predefined note, a demo role, a timestamp and an opaque alert identifier. Site analysis is available to the OH Physician and the Site HSE Officer within their demonstration scopes. Use the authenticated FastAPI service for persistent private ingestion. [Data governance](../DATA_GOVERNANCE.md)
+
+For a local production smoke test, run `npm ci`, `npm run build`, and `npm run start -- --port 3100` in `frontend`. In a second terminal, run `node scripts/smoke-surveillance.mjs` from the same directory.
 
 ## FastAPI backend
 

@@ -100,6 +100,8 @@ npm run dev
 
 </details>
 
+Open **Analyze site counts** from the workspace to run the sample, upload a CSV, or paste a report. [Reviewer walkthrough](docs/deployment.md#reviewer-walkthrough)
+
 <details>
 <summary>Validate the backtest and build</summary>
 
