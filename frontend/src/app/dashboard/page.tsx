@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { LocationEnvironment } from '@/components/surveillance/EnvironmentPanel';
 import { AppShell } from '@/components/layout/AppShell';
 import { SurveillanceHeader } from '@/components/dashboard/SurveillanceHeader';
 import { SurveillanceMapCard } from '@/components/dashboard/SurveillanceMapCard';
@@ -37,6 +38,13 @@ export default function DashboardPage() {
             onClose={() => setSelectedPlace(null)}
           />
         </div>
+      </div>
+
+      <div className="mb-6 space-y-2">
+        <p className="text-xs font-semibold text-canary-text-2">
+          Environmental context for {selectedPlace?.name ?? DUBAI_PLACES[0].name}
+        </p>
+        <LocationEnvironment locationId={selectedPlace?.id ?? DUBAI_PLACES[0].id} />
       </div>
 
       <h2 className="workspace-section-title mb-4">Simulated trends &amp; metrics</h2>

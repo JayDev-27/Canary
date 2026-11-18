@@ -23,7 +23,7 @@ export function AppShell({ title, description, children }: AppShellProps) {
             <h1>{title}</h1>
             <div>{description}</div>
           </div>
-          <p className="workspace-notice">Demo outcome data is simulated <span aria-hidden="true">·</span> Decision support only</p>
+          <p className="workspace-notice">Demo scenarios use simulated outcomes <span aria-hidden="true">·</span> Decision support only</p>
           {children}
         </main>
       </div>

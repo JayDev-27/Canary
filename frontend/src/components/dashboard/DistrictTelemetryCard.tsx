@@ -65,7 +65,7 @@ export const DistrictTelemetryCard: React.FC<DistrictTelemetryCardProps> = ({
             </div>
 
             <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/15 text-status-ok border border-emerald-500/30 shrink-0">
-              19 HUBS ACTIVE
+              SIMULATED OVERVIEW
             </span>
           </div>
 
@@ -143,7 +143,7 @@ export const DistrictTelemetryCard: React.FC<DistrictTelemetryCardProps> = ({
               <div className="h-full rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] w-[94%]" />
             </div>
             <p className="text-[11px] leading-relaxed pt-1">
-              86 environmental sensors &amp; 42 healthcare surveillance feeds synchronized under role <strong className="text-canary-text">{roleInfo.title}</strong>.
+              This scenario illustrates 86 environmental and 42 healthcare feeds for <strong className="text-canary-text">{roleInfo.title}</strong>.
             </p>
           </div>
 
@@ -374,16 +374,12 @@ export const DistrictTelemetryCard: React.FC<DistrictTelemetryCardProps> = ({
             </div>
             <div className="space-y-1.5 text-[11px] text-canary-text-2">
               <div className="flex items-center justify-between py-1 border-b border-border">
-                <span className="text-canary-text-3">Ambient Sensor Node:</span>
-                <span className="font-mono text-canary-text">42.1°C · PM2.5 14µg/m³</span>
-              </div>
-              <div className="flex items-center justify-between py-1 border-b border-border">
                 <span className="text-canary-text-3">Water Quality Index:</span>
                 <span className="font-mono text-status-ok">Nominal (Spore &lt; 0.02)</span>
               </div>
               <div className="flex items-center justify-between py-1 border-b border-border">
                 <span className="text-canary-text-3">Privacy Suppression:</span>
-                <span className="font-mono text-canary-amber">k ≥ 5 Enforced (DP-compliant)</span>
+                <span className="font-mono text-canary-amber">Small-cell threshold of 5</span>
               </div>
               <div className="flex items-center justify-between py-1">
                 <span className="text-canary-text-3">Synthetic Anomaly Seed:</span>
@@ -397,7 +393,7 @@ export const DistrictTelemetryCard: React.FC<DistrictTelemetryCardProps> = ({
         <div>
           <div className="text-[10px] uppercase font-mono text-canary-text-3 font-semibold tracking-wider mb-1.5 flex items-center justify-between">
             <span>Inspect Other Dubai Districts:</span>
-            <span className="text-canary-amber font-mono">{DUBAI_PLACES.length} Active Hubs</span>
+            <span className="text-canary-amber font-mono">{DUBAI_PLACES.length} Illustrated areas</span>
           </div>
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
             {DUBAI_PLACES.slice(0, 6).map((p) => {

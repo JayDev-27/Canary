@@ -73,8 +73,8 @@ body { min-height: 100vh; font-family: var(--font-ui); background: var(--canvas)
 .font-editorial-italic { font-style: italic; }
 ::selection { background: #d4dfef; color: #222f49; }
 :where(a, button, select, input, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-.canary-skip { position: fixed; z-index: 9999; top: 12px; left: 12px; transform: translateY(-150%); padding: 12px 20px; background: #2f3a55; color: white; border-radius: 10px; }
-.canary-skip:focus { transform: none; }
+.canary-skip { position: fixed; z-index: 9999; top: 12px; left: 12px; transform: translateY(-150%); opacity: 0; pointer-events: none; padding: 12px 20px; background: #2f3a55; color: white; border-radius: 10px; }
+.canary-skip:focus { transform: none; opacity: 1; pointer-events: auto; }
 .canary-panel { min-width: 0; background: var(--panel); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--panel-shadow); }
 .canary-panel-inset { background: var(--panel-inset); border: 1px solid var(--border); border-radius: 12px; }
 .hatched-suppressed, .hatched-missing {

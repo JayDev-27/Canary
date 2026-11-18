@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, AlertTriangle, ArrowUpRight, BarChart3, Compass, Menu, PlaySquare, Settings, ShieldCheck, TrendingUp } from 'lucide-react';
+import { Activity, AlertTriangle, ArrowUpRight, BarChart3, Compass, FileSpreadsheet, Menu, PlaySquare, Settings, ShieldCheck, TrendingUp } from 'lucide-react';
 import { CanaryWordmark } from '@/components/shared/CanaryWordmark';
 
 const groups = [
@@ -12,6 +12,7 @@ const groups = [
     items: [
       { href: '/dashboard', label: 'Surveillance room', icon: Activity },
       { href: '/map', label: 'Surveillance map', icon: Compass },
+      { href: '/analyze', label: 'Analyze site counts', icon: FileSpreadsheet },
       { href: '/alerts', label: 'Alert inbox', icon: AlertTriangle },
       { href: '/replay', label: 'Scenario replay', icon: PlaySquare },
     ],

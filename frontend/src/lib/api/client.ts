@@ -1,3 +1,4 @@
+import type { CountAnalysis, EnvironmentSnapshot, ReportCategory } from '../surveillance/contract';
 import {
   AlertsListResponse,
   ReplayDayState,
@@ -91,3 +92,28 @@ export async function testIngestPayload(payload: unknown) {
   return res.json();
 }
 
+
+export async function runCountAnalysis(
+  payload: { csv: string; unitId: string; category: ReportCategory; role: DemoRole },
+  signal: AbortSignal,
+): Promise<CountAnalysis> {
+  const response = await fetch('/api/v1/analyze', {
+    method: 'POST',
+    cache: 'no-store',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    signal,
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.error || 'Analysis is unavailable. Try again.');
+  }
+  return response.json();
+}
+
+export async function fetchEnvironment(locationId: string, signal: AbortSignal): Promise<EnvironmentSnapshot> {
+  const query = new URLSearchParams({ location: locationId });
+  const response = await fetch(`/api/v1/environment?${query}`, { cache: 'no-store', signal });
+  if (!response.ok) throw new Error('Environmental feeds are unavailable.');
+  return response.json();
+}

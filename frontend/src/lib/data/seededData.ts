@@ -388,6 +388,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
     },
     detectedAt: '2026-11-07T06:15:00Z',
     summary: 'Gastrointestinal clinic consultations at ICAD Workers Village 02 are 4.2 times expected baseline for 3 consecutive days, accompanied by sharp rise in evening teleconsultation queries across shared residential blocks. Prioritise water sanitation and food preparation inspection.',
+    tierReason: 'This Action example shows several days of elevated GI consultations, supported by higher district teleconsultation and workplace absence counts.',
     observedVsExpected: [
       {
         streamId: 'gi_clinic_visits',
@@ -499,7 +500,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
       guidanceUrl: 'https://www.who.int/publications/i/item/9789241549950',
     },
     provenance: {
-      environmental: 'real',
+      environmental: 'illustrative',
       outcomes: 'simulated',
     },
   },
@@ -522,13 +523,14 @@ export const SEEDED_ALERTS: AlertDetail[] = [
     },
     detectedAt: '2026-11-07T07:45:00Z',
     summary: 'Environmental PM2.5 reached 118 µg/m³ (Unhealthy category) for two consecutive days, followed by a 2.3x rise in respiratory clinic visits at Musaffah Heavy Fabrication. Early intervention recommended before severe bronchospasm incidents develop.',
+    tierReason: 'This Alert example pairs sustained particulate exposure with respiratory visits rising above the illustrated baseline.',
     observedVsExpected: [
       {
         streamId: 'pm25_exposure',
         streamName: 'Ambient PM2.5 Particulate Concentration',
         category: 'Environmental Hazard',
         unit: 'µg/m³',
-        provenance: 'real',
+        provenance: 'illustrative',
         sourceName: 'Open-Meteo European CAMS Air Quality',
         completeness: 99,
         history: [
@@ -568,7 +570,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
         expected: '33.0 µg/m³ (3.5x norm)',
         contribution: 0.52,
         capped: true,
-        provenance: 'real',
+        provenance: 'illustrative',
       },
       {
         stream: 'respiratory_clinic_visits',
@@ -604,7 +606,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
       guidanceUrl: 'https://www.who.int/news-room/feature-stories/detail/what-are-the-who-air-quality-guidelines',
     },
     provenance: {
-      environmental: 'real',
+      environmental: 'illustrative',
       outcomes: 'simulated',
     },
   },
@@ -627,6 +629,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
     },
     detectedAt: '2026-11-07T08:10:00Z',
     summary: 'Calculated Wet-Bulb Globe Temperature (WBGT) proxy reached 34.2°C during peak afternoon hours. First-aid hydration visits rose 3.1x above expected seasonal baseline across external structural crews.',
+    tierReason: 'This Alert example pairs an elevated heat stress proxy with a sustained rise in heat-related first-aid visits.',
     observedVsExpected: [
       {
         streamId: 'wbgt_heat_index',
@@ -708,7 +711,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
       guidanceUrl: 'https://www.mohre.gov.ae/en/media-centre/news/15/6/2023/midday-break.aspx',
     },
     provenance: {
-      environmental: 'real',
+      environmental: 'illustrative',
       outcomes: 'simulated',
     },
   },
@@ -731,13 +734,14 @@ export const SEEDED_ALERTS: AlertDetail[] = [
     },
     detectedAt: '2026-11-07T05:30:00Z',
     summary: 'Particulate sensors indicate elevated marine aerosol and construction dust. Clinic presentation rate remains near baseline. Watch tier active to verify wind direction forecast.',
+    tierReason: 'This Watch example shows elevated particulate exposure while clinic counts remain near the illustrated baseline.',
     observedVsExpected: [
       {
         streamId: 'pm10_dust',
         streamName: 'Coarse Particulate (PM10)',
         category: 'Environmental Hazard',
         unit: 'µg/m³',
-        provenance: 'real',
+        provenance: 'illustrative',
         sourceName: 'Open-Meteo Air Quality',
         completeness: 97,
         history: [
@@ -759,7 +763,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
         expected: '50 µg/m³ (+64%)',
         contribution: 0.85,
         capped: false,
-        provenance: 'real',
+        provenance: 'illustrative',
       },
     ],
     overallCompleteness: 95,
@@ -778,7 +782,7 @@ export const SEEDED_ALERTS: AlertDetail[] = [
       guidanceReference: 'Abu Dhabi Public Health Centre (ADPHC) Worker Safety Manual',
     },
     provenance: {
-      environmental: 'real',
+      environmental: 'illustrative',
       outcomes: 'simulated',
     },
   },

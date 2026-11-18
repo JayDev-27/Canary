@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { REVIEW_LABELS, useAlertReviews } from '@/lib/surveillance/reviews';
 import { AppShell } from '@/components/layout/AppShell';
 import { Panel } from '@/components/shared/Panel';
 import { RiskTierBadge } from '@/components/shared/RiskTierBadge';
@@ -8,7 +9,7 @@ import { CompletenessMeter } from '@/components/shared/CompletenessMeter';
 import { ProvenanceBadge } from '@/components/shared/ProvenanceBadge';
 import { fetchAlerts } from '@/lib/api/client';
 import { useDemoRole } from '@/context/RoleContext';
-import { AlertDetail, HazardType, RiskTier } from '@/lib/types/domain';
+import type { AlertDetail } from '@/lib/types/domain';
 import {
   ShieldAlert,
   Filter,
@@ -22,7 +23,8 @@ import {
 import Link from 'next/link';
 
 export default function AlertsInboxPage() {
-  const { activeRole } = useDemoRole();
+  const { activeRole, isRegulator } = useDemoRole();
+  const reviews = useAlertReviews();
   const [alerts, setAlerts] = useState<AlertDetail[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +32,8 @@ export default function AlertsInboxPage() {
   // Filters
   const [selectedTier, setSelectedTier] = useState<string>('all');
   const [selectedHazard, setSelectedHazard] = useState<string>('all');
-  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [loadedRole, setLoadedRole] = useState(activeRole);
   const [searchQuery, setSearchQuery] = useState('');
 
   const [refreshCount, setRefreshCount] = useState(0);
@@ -43,26 +46,31 @@ export default function AlertsInboxPage() {
       role: activeRole,
       tier: selectedTier,
       hazard: selectedHazard,
-      status: selectedStatus,
       signal: request.signal,
     })
       .then((data) => {
         if (request.signal.aborted) return;
         setAlerts(data.alerts);
+        setLoadedRole(activeRole);
         setLoading(false);
       })
       .catch((err) => {
         if (request.signal.aborted) return;
         console.error('Failed to load alerts:', err);
+        setLoadedRole(activeRole);
         setError('Alerts could not be loaded. Check the connection and retry.');
         setLoading(false);
       });
     return () => request.abort();
-  }, [activeRole, selectedTier, selectedHazard, selectedStatus, refreshCount]);
+  }, [activeRole, selectedTier, selectedHazard, refreshCount]);
 
-  const filteredAlerts = alerts.filter((a) => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
+  const filteredAlerts = (loadedRole === activeRole ? alerts : []).map((alert) => ({
+    ...alert,
+    reviewStatus: (!isRegulator && reviews.decision(alert.id)?.value) || alert.status,
+  })).filter((a) => {
+    if (!isRegulator && selectedStatus !== 'all' && a.reviewStatus !== selectedStatus) return false;
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.trim().toLowerCase();
     return (
       a.title.toLowerCase().includes(q) ||
       a.unit.name.toLowerCase().includes(q) ||
@@ -77,6 +85,10 @@ export default function AlertsInboxPage() {
       description="Manage active population and workforce health risk alerts across monitored facilities and accommodation networks."
     >
       <div className="flex flex-col gap-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-canary-text-2">Review simulated alerts. Review decisions stay in this browser.</p>
+          <Link href="/analyze" className="workspace-control">Analyze site counts <ArrowRight size={15} aria-hidden="true" /></Link>
+        </div>
         {/* Sticky Filter Bar */}
         <div className="canary-panel p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center flex-wrap gap-3 flex-1">
@@ -137,7 +149,13 @@ export default function AlertsInboxPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 self-end md:self-auto">
+          <div className="flex flex-wrap items-center gap-2 self-end md:self-auto">
+            {!isRegulator && <label className="sr-only" htmlFor="alert-status">Review status</label>}
+            {!isRegulator && <select id="alert-status" className="workspace-control" value={selectedStatus}
+              onChange={(event) => setSelectedStatus(event.target.value)}>
+              <option value="all">All statuses</option>
+              {Object.entries(REVIEW_LABELS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>}
             <button
               onClick={() => {
                 setSelectedTier('all');
@@ -153,6 +171,7 @@ export default function AlertsInboxPage() {
               onClick={() => setRefreshCount((count) => count + 1)}
               className="p-1.5 rounded-control bg-panel-inset hover:bg-panel-raised border border-border text-canary-text-3 hover:text-canary-amber transition-colors"
               title="Refresh Alerts"
+              aria-label="Refresh alerts"
             >
               <RefreshCw className="w-4 h-4" />
             </button>
@@ -162,9 +181,9 @@ export default function AlertsInboxPage() {
         {/* Alerts Table Panel */}
         <Panel
           title={`Operational Alert Queue (${filteredAlerts.length})`}
-          subtitle="Persistent anomaly signals evaluated against rolling 12-month negative-binomial GLM baseline"
+          subtitle="Alert examples from the simulated surveillance workspace"
         >
-          {loading ? (
+          {loading || loadedRole !== activeRole ? (
             /* Skeleton Loading State */
             <div className="space-y-3 py-4">
               {[1, 2, 3].map((i) => (
@@ -190,12 +209,14 @@ export default function AlertsInboxPage() {
                 No alerts match these filters.
               </p>
               <p className="text-xs text-canary-text-3">
-                Canary is continuously monitoring all active data feeds. Try widening the filter criteria.
+                Try widening the filters or clearing your search.
               </p>
               <button
                 onClick={() => {
                   setSelectedTier('all');
                   setSelectedHazard('all');
+                  setSelectedStatus('all');
+                  setSearchQuery('');
                 }}
                 className="mt-2 text-xs text-canary-amber hover:underline"
               >
@@ -279,7 +300,7 @@ export default function AlertsInboxPage() {
 
                         <td className="py-3.5 px-4">
                           <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] uppercase font-semibold bg-panel-inset text-canary-text-2 border border-border">
-                            {alert.status.replace('_', ' ')}
+                            {REVIEW_LABELS[alert.reviewStatus]}
                           </span>
                         </td>
 
