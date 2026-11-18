@@ -80,6 +80,7 @@ def test_replay_and_explanations(demo, scenario, day):
     assert alert["recommendation"]["requires_human_signoff"]
     assert alert["recommendation"]["evidence"][0]["url"].startswith("https://")
     assert alert["contributions"]
+    assert "at least two of three days" in alert["reason"]
     assert demo.get(f"/alerts/{marker['id']}?role=regulator").status_code == 404
     assert demo.get(f"/replay/{scenario}?day=0").json()["markers"]["canary"] == []
 

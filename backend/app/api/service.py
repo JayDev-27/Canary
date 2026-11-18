@@ -31,6 +31,11 @@ from backend.app.privacy.storage import Store
 
 DUBAI = ZoneInfo("Asia/Dubai")
 HORIZON = 730
+TIER_REASONS = {
+    "Watch": "The combined evidence crossed the Watch threshold.",
+    "Alert": "The combined evidence met the Alert criteria on at least two of three days.",
+    "Action": "Persistent evidence crossed the higher Action threshold after an Alert.",
+}
 
 
 def today():
@@ -97,6 +102,7 @@ class Board:
             "unit_id": self.dataset.units[hit.u].id,
             "syndrome": hit.syndrome,
             "tier": hit.tier,
+            "reason": TIER_REASONS[hit.tier],
             "start": self.dataset.dates[hit.t],
             "completeness": round(completeness, 3),
             "confidence": "higher"
