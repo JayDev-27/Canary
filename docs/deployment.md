@@ -2,7 +2,7 @@
 
 ## Vercel website
 
-The public [Canary demo](https://canary-jatinjio1212-8258s-projects.vercel.app) runs on the `canary` Vercel project. The project uses Next.js, Node.js 24, the `frontend` root directory, and the `main` production branch. Pushes to `main` trigger production deployments through the Git integration.
+The public demo runs on the existing `canary` Vercel project. To deploy from this repository, connect `JayDev-27/Canary` in Vercel, select the Next.js preset, set Node.js to 24 and use `frontend` as the root directory. Set `main` as the production branch. [Canary demo](https://canary-jatinjio1212-8258s-projects.vercel.app)
 
 The site includes simulated scenarios, on-demand CSV analysis, and live environmental context. The Next.js server needs outbound HTTPS access to `api.open-meteo.com` and `air-quality-api.open-meteo.com`. The public Open-Meteo endpoints need no API key for this demo. Each feed times out independently and the count-analysis workflow continues during an outage. The FastAPI engine runs as a separate service.
 

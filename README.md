@@ -7,8 +7,8 @@
 <p><strong>Connect environmental exposure with aggregate health and workplace signals so teams can investigate emerging risk earlier.</strong></p>
 <p>Future Health Digital Innovation Challenge · Challenge 06</p>
 
-[![Canary CI](https://github.com/satiricalguru/Canary/actions/workflows/ci.yml/badge.svg)](https://github.com/satiricalguru/Canary/actions/workflows/ci.yml)
-[![Code Review](https://github.com/satiricalguru/Canary/actions/workflows/code-review.yml/badge.svg)](https://github.com/satiricalguru/Canary/actions/workflows/code-review.yml)
+[![Canary CI](https://github.com/JayDev-27/Canary/actions/workflows/ci.yml/badge.svg)](https://github.com/JayDev-27/Canary/actions/workflows/ci.yml)
+[![Code Review](https://github.com/JayDev-27/Canary/actions/workflows/code-review.yml/badge.svg)](https://github.com/JayDev-27/Canary/actions/workflows/code-review.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-2F3A55)](LICENSE)
 ![Next.js 16](https://img.shields.io/badge/Next.js-16-2F3A55)
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-2F3A55)
@@ -81,7 +81,7 @@ Canary is a prototype for occupational health, site safety, and public health te
 Install Python 3.12, [uv](https://docs.astral.sh/uv/getting-started/installation/), and Node.js 22 with npm.
 
 ```bash
-git clone https://github.com/satiricalguru/Canary.git
+git clone https://github.com/JayDev-27/Canary.git
 cd Canary
 uv sync --locked
 ./start.sh
@@ -162,12 +162,12 @@ The backend accepts aggregate records and rejects person-level fields. Small val
 
 ## Contributors
 
-See the [project contribution history](https://github.com/satiricalguru/Canary/graphs/contributors) for authorship. These contributors and automations helped build, verify, and ship Canary.
+The original Canary authors and contributors are credited below. This repository imports the project snapshot and the locally available reviewer-workflow commits. [Available commit history](https://github.com/JayDev-27/Canary/commits/main/)
 
 <table>
 <tr>
 <td align="center" width="25%"><a href="https://github.com/codex"><img src="docs/media/credits/codex.png" width="56" height="56" alt="OpenAI Codex logo"><br><strong>OpenAI Codex</strong></a><br><sub>Implementation, QA, and showcase</sub></td>
-<td align="center" width="25%"><a href="https://github.com/satiricalguru/Canary/actions"><img src="docs/media/credits/github-actions.png" width="56" height="56" alt="GitHub Actions bot avatar"><br><strong>GitHub Actions</strong></a><br><sub>Builds, tests, and security checks</sub></td>
+<td align="center" width="25%"><a href="https://github.com/JayDev-27/Canary/actions"><img src="docs/media/credits/github-actions.png" width="56" height="56" alt="GitHub Actions bot avatar"><br><strong>GitHub Actions</strong></a><br><sub>Builds, tests, and security checks</sub></td>
 <td align="center" width="25%"><a href="https://github.com/apps/dependabot"><img src="docs/media/credits/dependabot.png" width="56" height="56" alt="Dependabot avatar"><br><strong>Dependabot</strong></a><br><sub>Dependency updates</sub></td>
 <td align="center" width="25%"><a href="https://github.com/apps/vercel"><img src="docs/media/credits/vercel.png" width="56" height="56" alt="Vercel bot avatar"><br><strong>Vercel</strong></a><br><sub>Production deploys and commit status</sub></td>
 </tr>
